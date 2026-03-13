@@ -1,6 +1,11 @@
-"""Shared Quaternionic Signal Processing primitives for RQM Technologies."""
+"""Shared Quaternionic Signal Processing primitives for RQM Technologies.
 
-from .filters import clip, moving_average, normalize_signal, validate_signal
+The top-level package exports the small, stable foundation API that downstream
+repositories are expected to import directly. Lower-level validation helpers
+remain available from their module namespaces.
+"""
+
+from .filters import clip, moving_average, normalize_signal
 from .quaternion import Quaternion
 from .su2 import (
     is_unit_quaternion,
@@ -9,7 +14,7 @@ from .su2 import (
     quaternion_to_su2,
     su2_to_quaternion,
 )
-from .transforms import dft, idft, validate_transform_input
+from .transforms import dft, idft
 
 __all__ = [
     "Quaternion",
@@ -23,6 +28,4 @@ __all__ = [
     "normalize_signal",
     "quaternion_to_su2",
     "su2_to_quaternion",
-    "validate_signal",
-    "validate_transform_input",
 ]

@@ -5,16 +5,18 @@ from __future__ import annotations
 import cmath
 import math
 
+from collections.abc import Iterable
+
 from .utils import ensure_complex_sequence
 
 
-def validate_transform_input(values: list[complex] | tuple[complex, ...]) -> tuple[complex, ...]:
-    """Validate and coerce transform input into a tuple of complex values."""
+def validate_transform_input(values: Iterable[complex]) -> tuple[complex, ...]:
+    """Validate transform input and return it as a tuple of complex samples."""
     return ensure_complex_sequence(values, name="values", allow_empty=True)
 
 
-def dft(values: list[complex] | tuple[complex, ...]) -> list[complex]:
-    """Compute a simple O(n^2) discrete Fourier transform.
+def dft(values: Iterable[complex]) -> list[complex]:
+    """Return the discrete Fourier transform of ``values``.
 
     This is a small reference implementation for qsp-core. More advanced
     transform work should live in qsp-fft.
@@ -34,8 +36,8 @@ def dft(values: list[complex] | tuple[complex, ...]) -> list[complex]:
     return output
 
 
-def idft(values: list[complex] | tuple[complex, ...]) -> list[complex]:
-    """Compute the inverse discrete Fourier transform matching :func:`dft`."""
+def idft(values: Iterable[complex]) -> list[complex]:
+    """Return the inverse discrete Fourier transform matching :func:`dft`."""
     spectrum = validate_transform_input(values)
     count = len(spectrum)
     if count == 0:

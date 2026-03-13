@@ -4,10 +4,14 @@ Downstream repositories should treat `qsp-core` as the canonical source for shar
 
 ## Recommended dependency pattern
 
-- `qsp-fft` should import quaternion and validation helpers from `qsp-core` and extend the transform layer.
-- `qsp-filter` should import signal validation and normalization helpers from `qsp-core` and extend the filtering layer.
+- `qsp-fft` should import the shared quaternion and transform foundations from `qsp-core` and extend the transform layer with optimized or specialized implementations.
+- `qsp-filter` should import the shared filtering foundations from `qsp-core` and extend them with richer filter design and processing utilities.
 - `qsp-modulation` should import quaternion and SU(2) helpers from `qsp-core` instead of reimplementing them.
 - `eigenclock`, `quaternionic-modem`, and `quaternionic-navigation` should depend on `qsp-core` directly or indirectly through the higher-level QSP libraries.
+
+Prefer the top-level `qsp` imports for stable shared primitives. Reach into
+module-level helpers such as `qsp.filters.validate_signal` only when a
+downstream repository explicitly needs that lower-level behavior.
 
 ## What should stay in qsp-core
 

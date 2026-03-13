@@ -2,26 +2,27 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+
 from .quaternion import Quaternion
 from .utils import approx_equal
 
 Matrix2x2 = tuple[tuple[complex, complex], tuple[complex, complex]]
 
 
-def normalize_quaternion(value: Quaternion | tuple[float, float, float, float]) -> Quaternion:
-    """Return a normalized quaternion from a quaternion or 4-tuple."""
-    quaternion = value if isinstance(value, Quaternion) else Quaternion.from_iterable(value)
-    return quaternion.normalize()
+def normalize_quaternion(value: Quaternion | Iterable[float]) -> Quaternion:
+    """Return a normalized quaternion from a quaternion or four real values."""
+    return _coerce_quaternion(value).normalize()
 
 
-def is_unit_quaternion(value: Quaternion | tuple[float, float, float, float], *, tolerance: float = 1e-9) -> bool:
-    """Return True when the quaternion norm is approximately one."""
-    quaternion = value if isinstance(value, Quaternion) else Quaternion.from_iterable(value)
+def is_unit_quaternion(value: Quaternion | Iterable[float], *, tolerance: float = 1e-9) -> bool:
+    """Return ``True`` when a quaternion has unit norm within ``tolerance``."""
+    quaternion = _coerce_quaternion(value)
     return approx_equal(quaternion.norm(), 1.0, tolerance=tolerance)
 
 
-def quaternion_to_su2(value: Quaternion | tuple[float, float, float, float]) -> Matrix2x2:
-    """Convert a quaternion into its corresponding SU(2) matrix."""
+def quaternion_to_su2(value: Quaternion | Iterable[float]) -> Matrix2x2:
+    """Convert a unit quaternion into the corresponding SU(2) matrix."""
     quaternion = normalize_quaternion(value)
     a = complex(quaternion.w, quaternion.x)
     b = complex(quaternion.y, quaternion.z)
@@ -56,3 +57,10 @@ def matrix_trace(matrix: Matrix2x2) -> complex:
 def _validate_matrix_shape(matrix: Matrix2x2) -> None:
     if len(matrix) != 2 or any(len(row) != 2 for row in matrix):
         raise ValueError("matrix must be a 2x2 structure")
+
+
+def _coerce_quaternion(value: Quaternion | Iterable[float]) -> Quaternion:
+    """Return ``value`` as a :class:`Quaternion` instance."""
+    if isinstance(value, Quaternion):
+        return value
+    return Quaternion.from_iterable(value)

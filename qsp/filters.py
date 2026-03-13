@@ -2,16 +2,18 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+
 from .utils import ensure_real_number, ensure_real_sequence
 
 
-def validate_signal(values: list[float] | tuple[float, ...], *, allow_empty: bool = True) -> tuple[float, ...]:
-    """Validate and coerce a real-valued signal into a tuple of floats."""
+def validate_signal(values: Iterable[float], *, allow_empty: bool = True) -> tuple[float, ...]:
+    """Validate a real-valued signal and return it as a tuple of floats."""
     return ensure_real_sequence(values, name="values", allow_empty=allow_empty)
 
 
-def moving_average(values: list[float] | tuple[float, ...], window_size: int) -> list[float]:
-    """Return the sliding-window moving average of *values*."""
+def moving_average(values: Iterable[float], window_size: int) -> list[float]:
+    """Return the sliding-window moving average for a real-valued signal."""
     signal = validate_signal(values)
     if not isinstance(window_size, int) or window_size <= 0:
         raise ValueError("window_size must be a positive integer")
@@ -26,8 +28,8 @@ def moving_average(values: list[float] | tuple[float, ...], window_size: int) ->
     ]
 
 
-def clip(values: list[float] | tuple[float, ...], minimum: float, maximum: float) -> list[float]:
-    """Clip each sample in *values* to the inclusive range [minimum, maximum]."""
+def clip(values: Iterable[float], minimum: float, maximum: float) -> list[float]:
+    """Clip each signal sample to the inclusive range ``[minimum, maximum]``."""
     signal = validate_signal(values)
     lower = ensure_real_number(minimum, name="minimum")
     upper = ensure_real_number(maximum, name="maximum")
@@ -36,8 +38,8 @@ def clip(values: list[float] | tuple[float, ...], minimum: float, maximum: float
     return [min(max(sample, lower), upper) for sample in signal]
 
 
-def normalize_signal(values: list[float] | tuple[float, ...]) -> list[float]:
-    """Scale a signal so that its maximum absolute value becomes one."""
+def normalize_signal(values: Iterable[float]) -> list[float]:
+    """Scale a signal so its maximum absolute value becomes one."""
     signal = validate_signal(values)
     if not signal:
         return []

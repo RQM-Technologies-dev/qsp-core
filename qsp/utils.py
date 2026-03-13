@@ -1,22 +1,20 @@
-"""Small shared helpers used across qsp-core modules."""
+"""Small internal helpers shared across qsp-core modules."""
 
 from __future__ import annotations
 
 from numbers import Real
-from typing import Iterable, TypeVar
-
-T = TypeVar("T")
+from typing import Iterable
 
 
 def ensure_real_number(value: Real, *, name: str) -> float:
-    """Return *value* as a float when it is a real number."""
+    """Return ``value`` as a float when it is a real number."""
     if not isinstance(value, Real):
         raise TypeError(f"{name} must be a real number")
     return float(value)
 
 
 def ensure_complex_sequence(values: Iterable[complex], *, name: str, allow_empty: bool = False) -> tuple[complex, ...]:
-    """Convert *values* into a tuple of complex numbers."""
+    """Return ``values`` as a tuple of complex numbers."""
     try:
         items = tuple(complex(value) for value in values)
     except TypeError as error:
@@ -28,7 +26,7 @@ def ensure_complex_sequence(values: Iterable[complex], *, name: str, allow_empty
 
 
 def ensure_real_sequence(values: Iterable[Real], *, name: str, allow_empty: bool = False) -> tuple[float, ...]:
-    """Convert *values* into a tuple of floats."""
+    """Return ``values`` as a tuple of floats."""
     try:
         items = tuple(ensure_real_number(value, name=name) for value in values)
     except TypeError as error:
@@ -40,13 +38,5 @@ def ensure_real_sequence(values: Iterable[Real], *, name: str, allow_empty: bool
 
 
 def approx_equal(left: complex, right: complex, *, tolerance: float = 1e-9) -> bool:
-    """Return True when two numeric values are within *tolerance* of each other."""
+    """Return ``True`` when two numeric values are within ``tolerance``."""
     return abs(left - right) <= tolerance
-
-
-def pairwise_sum(values: Iterable[T], *, start: T) -> T:
-    """Accumulate values from left to right without importing extra helpers."""
-    total = start
-    for value in values:
-        total += value
-    return total

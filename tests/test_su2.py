@@ -11,11 +11,15 @@ from qsp.su2 import (
 
 
 class Su2Tests(unittest.TestCase):
-    def test_normalize_quaternion_and_unit_check(self) -> None:
+    def test_normalize_quaternion(self) -> None:
         quaternion = normalize_quaternion((0, 3, 0, 4))
 
         for expected, actual in zip((0.0, 0.6, 0.0, 0.8), quaternion.to_tuple()):
             self.assertAlmostEqual(expected, actual, places=9)
+
+    def test_is_unit_quaternion(self) -> None:
+        quaternion = Quaternion(0, 3, 0, 4).normalize()
+
         self.assertTrue(is_unit_quaternion(quaternion))
         self.assertFalse(is_unit_quaternion((1, 1, 0, 0)))
 

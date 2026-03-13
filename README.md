@@ -36,7 +36,18 @@ qsp-core/
 - `qsp.su2` – minimal SU(2) conversion helpers built on unit quaternions
 - `qsp.transforms` – baseline DFT/IDFT utilities for future `qsp-fft` work
 - `qsp.filters` – simple signal helpers for future `qsp-filter` work
-- `qsp.utils` – small shared validation helpers used across modules
+- `qsp.utils` – small internal validation helpers shared across modules
+
+## Public API
+
+The top-level `qsp` package exports the stable foundation layer:
+
+- `Quaternion`
+- `normalize_quaternion`, `is_unit_quaternion`, `quaternion_to_su2`, `su2_to_quaternion`, `matrix_trace`
+- `dft`, `idft`
+- `moving_average`, `clip`, `normalize_signal`
+
+Lower-level validation helpers such as `validate_signal()` and `validate_transform_input()` remain available from their module namespaces when needed, but they are not part of the top-level public API.
 
 ## Downstream repositories expected to depend on qsp-core
 
