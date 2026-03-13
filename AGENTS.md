@@ -15,6 +15,7 @@ It must remain:
 - mathematically clear
 
 This repo provides the shared math utilities that downstream repositories depend on.
+Downstream repositories should import shared quaternion, SU(2), transform, and filtering primitives from `qsp-core` instead of reimplementing that foundation logic locally.
 
 ## Ecosystem architecture
 
