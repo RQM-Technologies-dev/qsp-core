@@ -2,6 +2,24 @@
 
 Downstream repositories should treat `qsp-core` as the canonical source for shared quaternionic primitives.
 
+## Package name vs import name
+
+> **PyPI distribution name:** `qsp-core`
+> **Python import name:** `qsp`
+>
+> Declare `qsp-core` as the dependency in your project configuration (e.g. `pyproject.toml`), then import from the `qsp` namespace in your code.
+
+```toml
+# pyproject.toml
+[project]
+dependencies = ["qsp-core"]
+```
+
+```python
+# your_module.py
+from qsp import Quaternion, dft, idft
+```
+
 ## Recommended dependency pattern
 
 - `qsp-fft` should import the shared quaternion and transform foundations from `qsp-core` and extend the transform layer with optimized or specialized implementations.
