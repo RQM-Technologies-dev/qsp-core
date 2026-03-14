@@ -133,6 +133,19 @@ The following should **not** be added to `qsp-core` in future work:
 
 See [`docs/repo-roadmap.md`](docs/repo-roadmap.md) for the full build-order roadmap and future scope.
 
+## Publishing
+
+Releases are published to [PyPI](https://pypi.org/project/qsp-core/) automatically via GitHub Actions using [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC – no long-lived API tokens required).
+
+The publish workflow (`.github/workflows/publish.yml`) is triggered when a GitHub Release is published. It builds both a source distribution (`sdist`) and a wheel, then uploads them to PyPI through the `pypa/gh-action-pypi-publish` action.
+
+To publish a new release:
+1. Create and push a version tag (e.g. `v0.2.0`).
+2. Draft and publish a GitHub Release targeting that tag.
+3. The workflow runs automatically and uploads the distributions to PyPI.
+
+> **One-time setup:** A Trusted Publisher entry for this repository must be configured in the PyPI project settings before the first automated publish. You must also create a `pypi` environment in the GitHub repository settings (used by the publish job for deployment protection rules). See the [PyPI Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/adding-a-publisher/) for instructions.
+
 ## Local installation
 
 Install the package locally from the repository root:
