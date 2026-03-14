@@ -1,3 +1,13 @@
+# Read First
+
+Before generating any code or making any changes in this repository, read **[`AI_ENGINEERING_GUIDE.md`](./AI_ENGINEERING_GUIDE.md)** (repo root).
+
+That file defines the shared doctrine for the entire QSP ecosystem: design philosophy, repository boundaries, engineering rules, API discipline, and testing expectations.
+
+**Precedence:** When this `AGENTS.md` conflicts with `AI_ENGINEERING_GUIDE.md`, **this file wins** for repo-local exceptions. When in doubt about ecosystem-wide concerns, defer to the guide.
+
+---
+
 # RQM Technologies – Agent Instructions
 
 This repository is the foundation of the RQM Technologies QSP ecosystem.
