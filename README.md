@@ -47,7 +47,17 @@ The top-level `qsp` package exports the stable foundation layer:
 - `dft`, `idft`
 - `moving_average`, `clip`, `normalize_signal`
 
-Lower-level validation helpers such as `validate_signal()` and `validate_transform_input()` remain available from their module namespaces when needed, but they are not part of the top-level public API.
+Downstream repositories should prefer those top-level imports when depending on
+`qsp-core` as a shared foundation:
+
+- `qsp-fft` should build on `dft`, `idft`, and shared quaternion/SU(2) primitives when needed
+- `qsp-filter` should build on `moving_average`, `clip`, and `normalize_signal`
+- `qsp-modulation` should build on `Quaternion`, `normalize_quaternion`, `is_unit_quaternion`, `quaternion_to_su2`, and `su2_to_quaternion`
+
+Lower-level validation helpers such as `validate_signal()` and
+`validate_transform_input()` remain available from their module namespaces when
+needed, but they are not part of the top-level public API and should not be the
+default dependency surface for new repositories.
 
 ## Downstream repositories expected to depend on qsp-core
 
@@ -57,6 +67,14 @@ Lower-level validation helpers such as `validate_signal()` and `validate_transfo
 - `eigenclock`
 - `quaternionic-modem`
 - `quaternionic-navigation`
+
+`qsp-core` should remain the small shared base for those projects. Keep the
+following outside this repository:
+
+- optimized FFT backends and specialized spectral algorithms
+- advanced filter design, pipelines, and higher-order processing utilities
+- protocol- or waveform-specific modulation logic
+- application orchestration and end-user workflows
 
 ## Local installation
 
