@@ -146,6 +146,14 @@ To publish a new release:
 
 > **One-time setup:** A Trusted Publisher entry for this repository must be configured in the PyPI project settings before the first automated publish. You must also create a `pypi` environment in the GitHub repository settings (used by the publish job for deployment protection rules). See the [PyPI Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/adding-a-publisher/) for instructions.
 
+## Package name vs import name
+
+> **PyPI distribution name:** `qsp-core`
+> **Python import name:** `qsp`
+>
+> Install the package as `qsp-core` (e.g. `pip install qsp-core`) and import it as `qsp` (e.g. `from qsp import Quaternion`).
+> This distinction applies across the whole RQM Technologies ecosystem: every downstream repository depends on the `qsp-core` distribution but imports from the `qsp` namespace.
+
 ## Local installation
 
 Install the package locally from the repository root:
