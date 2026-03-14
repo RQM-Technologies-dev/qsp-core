@@ -178,13 +178,23 @@ That makes a huge difference.
 
 # Where to put it
 
-Add this file to **every repo root**:
+Add this file to **every QSP repository root**:
 
 ```
 AI_ENGINEERING_GUIDE.md
 ```
 
 And reference it in `AGENTS.md`.
+
+This doctrine is meant to be replicated across the QSP ecosystem, not only in `qsp-core`. The current rollout target is:
+
+- `qsp-core`
+- `qsp-fft`
+- `qsp-filter`
+- `qsp-modulation`
+- `qsp-orientation`
+
+Each repository should carry this shared baseline guide plus a repo-local `AGENTS.md` that defines its own boundaries, priorities, and exceptions.
 
 ---
 
