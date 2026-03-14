@@ -1,3 +1,5 @@
+<img src="https://github.com/RQM-Technologies-dev/qsp-core/actions/workflows/ci.yml/badge.svg">
+
 # qsp-core
 
 `qsp-core` is the shared Quaternionic Signal Processing foundation library for the RQM Technologies ecosystem.
