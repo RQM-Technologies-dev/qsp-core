@@ -23,6 +23,11 @@ class PackageApiTests(unittest.TestCase):
         self.assertFalse(hasattr(qsp, "validate_signal"))
         self.assertFalse(hasattr(qsp, "validate_transform_input"))
 
+    def test_version_is_exposed(self) -> None:
+        self.assertTrue(hasattr(qsp, "__version__"))
+        self.assertIsInstance(qsp.__version__, str)
+        self.assertRegex(qsp.__version__, r"^\d+\.\d+\.\d+")
+
     def test_internal_helpers_do_not_leak_into_top_level_api(self) -> None:
         internal_names = {
             "approx_equal",
