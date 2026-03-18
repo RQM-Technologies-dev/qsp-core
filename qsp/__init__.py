@@ -13,6 +13,8 @@ that ``qsp-core`` stays explicit and dependency-like rather than absorbing
 downstream-specific implementation details.
 """
 
+__version__ = "0.1.0"
+
 from .filters import clip, moving_average, normalize_signal
 from .quaternion import Quaternion
 from .su2 import (
